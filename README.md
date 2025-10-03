@@ -1,3 +1,6 @@
+# Họ và tên: Dương Khải Anh
+# MSV: 22810350161
+
 # RSA Code Lab - Lý thuyết và Thực hành
 
 Ứng dụng web tương tác để học và thực hành thuật toán mã hóa RSA.
@@ -16,21 +19,6 @@
 - **Mã hóa/Giải mã**: Demo với số nguyên m
 - **Kiểm tra số nguyên tố**: Tự động kiểm tra p và q
 - **Hiển thị công thức**: Mỗi bước tính toán được giải thích rõ ràng
-
-## 🚀 Cách sử dụng
-
-### Phương pháp 1: Sử dụng Python Server (Khuyến nghị)
-
-```bash
-# Chạy server Python
-python server.py
-```
-
-Server sẽ tự động mở trình duyệt tại `http://localhost:8000`
-
-### Phương pháp 2: Mở trực tiếp file HTML
-
-Mở file `index.html` trong trình duyệt web hiện đại (Chrome, Firefox, Edge, Safari)
 
 ## 📝 Hướng dẫn sử dụng Code Lab
 
