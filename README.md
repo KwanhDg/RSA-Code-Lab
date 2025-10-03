@@ -1,5 +1,4 @@
-# Họ và tên: Dương Khải Anh
-# MSV: 22810350161
+# Họ và tên: Dương Khải Anh - MSV: 22810350161
 
 # RSA Code Lab - Lý thuyết và Thực hành
 
@@ -64,90 +63,6 @@ d = 53 (17 × 53 ≡ 1 mod 60)
 
 Mã hóa: c = 5^17 mod 77 = 26
 Giải mã: m = 26^53 mod 77 = 5 ✓
-```
-
-## 🛠️ Công nghệ sử dụng
-
-- **HTML5**: Cấu trúc trang web
-- **CSS3**: Styling hiện đại với gradient và animations
-- **JavaScript**: Logic RSA và tương tác
-- **Font Awesome**: Icons đẹp mắt
-- **MathJax**: Hiển thị công thức toán học (optional)
-
-## 📚 Thuật toán được implement
-
-### 1. Kiểm tra số nguyên tố
-```javascript
-function isPrime(num) {
-    if (num < 2) return false;
-    if (num === 2) return true;
-    if (num % 2 === 0) return false;
-    for (let i = 3; i <= Math.sqrt(num); i += 2) {
-        if (num % i === 0) return false;
-    }
-    return true;
-}
-```
-
-### 2. Tìm modular inverse (Extended Euclidean)
-```javascript
-function modInverse(e, phi) {
-    // Extended Euclidean Algorithm
-    // Tìm d sao cho e × d ≡ 1 (mod phi)
-}
-```
-
-### 3. Modular exponentiation (Fast power)
-```javascript
-function modPow(base, exponent, modulus) {
-    // Tính base^exponent mod modulus hiệu quả
-    // Sử dụng phương pháp bình phương và nhân
-}
-```
-
-## 🎨 Giao diện
-
-- **Responsive design**: Hoạt động tốt trên desktop và mobile
-- **Modern UI**: Gradient backgrounds, smooth animations
-- **Color-coded**: Các bước khác nhau có màu sắc phân biệt
-- **Interactive**: Real-time validation và feedback
-
-## 📖 Kiến thức bổ sung
-
-### Tại sao chọn e = 65537?
-- Là số nguyên tố Fermat: F₄ = 2^16 + 1
-- Biểu diễn nhị phân: 10000000000000001 (chỉ 2 bit 1)
-- Mã hóa nhanh: Chỉ cần 16 phép bình phương + 1 phép nhân
-- Đủ lớn để an toàn, tránh tấn công với e nhỏ
-
-### Kích thước khóa trong thực tế
-- **Demo này**: p, q nhỏ (< 100) để dễ hiểu
-- **Thực tế**: 
-  - RSA-2048: n có 2048 bits (617 chữ số)
-  - RSA-4096: n có 4096 bits (1234 chữ số)
-  - p, q có độ dài ~1024 hoặc 2048 bits
-
-### Lưu ý bảo mật
-⚠️ **Code này chỉ dùng để học tập!**
-- Không sử dụng cho mục đích bảo mật thực tế
-- Không có padding (OAEP/PKCS#1)
-- Số nguyên tố quá nhỏ
-- JavaScript không phù hợp cho cryptography thực tế
-
-## 🤝 Đóng góp
-
-Nếu bạn muốn cải thiện project:
-1. Thêm support cho số lớn hơn (BigInt)
-2. Implement OAEP padding
-3. Thêm visualization cho quá trình tính toán
-4. Thêm nhiều ví dụ và bài tập
-
-## 📄 License
-
-MIT License - Tự do sử dụng cho mục đích học tập và giảng dạy.
-
-## 👨‍💻 Tác giả
-
 Được tạo bởi Cascade AI Assistant cho mục đích giáo dục.
 
 ---
