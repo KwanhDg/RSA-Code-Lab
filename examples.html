@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA Examples - Các ví dụ minh họa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .example {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        
+        .example h3 {
+            color: #495057;
+            margin-bottom: 15px;
+        }
+        
+        .params {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .params strong {
+            color: #667eea;
+        }
+        
+        .steps {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+        }
+        
+        .try-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .try-button:hover {
+            background: #218838;
+        }
+        
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Quay lại Code Lab</a>
+        
+        <h1>📚 Các ví dụ RSA minh họa</h1>
+        <p style="margin-bottom: 30px; color: #666;">Dưới đây là các ví dụ RSA với số nguyên tố nhỏ để dễ hiểu và tính toán</p>
+        
+        <!-- Example 1 -->
+        <div class="example">
+            <h3>Ví dụ 1: Số nguyên tố nhỏ nhất</h3>
+            <div class="params">
+                <strong>Tham số:</strong> p = 3, q = 11, m = 5
+            </div>
+            <div class="steps">
+n = 3 × 11 = 33
+φ(n) = (3-1) × (11-1) = 2 × 10 = 20
+e = 3 (gcd(3, 20) = 1)
+d = 7 (vì 3 × 7 = 21 ≡ 1 mod 20)
+
+Khóa công khai: (33, 3)
+Khóa riêng tư: (33, 7)
+
+Mã hóa: c = 5³ mod 33 = 125 mod 33 = 26
+Giải mã: m = 26⁷ mod 33 = 8031810176 mod 33 = 5 ✓
+            </div>
+            <button class="try-button" onclick="tryExample(3, 11, 5)">Thử trong Code Lab</button>
+        </div>
+        
+        <!-- Example 2 -->
+        <div class="example">
+            <h3>Ví dụ 2: Ví dụ cổ điển</h3>
+            <div class="params">
+                <strong>Tham số:</strong> p = 7, q = 11, m = 5
+            </div>
+            <div class="steps">
+n = 7 × 11 = 77
+φ(n) = 6 × 10 = 60
+e = 17 (gcd(17, 60) = 1)
+d = 53 (vì 17 × 53 = 901 ≡ 1 mod 60)
+
+Khóa công khai: (77, 17)
+Khóa riêng tư: (77, 53)
+
+Mã hóa: c = 5¹⁷ mod 77 = 26
+Giải mã: m = 26⁵³ mod 77 = 5 ✓
+            </div>
+            <button class="try-button" onclick="tryExample(7, 11, 5)">Thử trong Code Lab</button>
+        </div>
+        
+        <!-- Example 3 -->
+        <div class="example">
+            <h3>Ví dụ 3: Số lớn hơn một chút</h3>
+            <div class="params">
+                <strong>Tham số:</strong> p = 13, q = 17, m = 42
+            </div>
+            <div class="steps">
+n = 13 × 17 = 221
+φ(n) = 12 × 16 = 192
+e = 17 (gcd(17, 192) = 1)
+d = 113 (vì 17 × 113 = 1921 ≡ 1 mod 192)
+
+Khóa công khai: (221, 17)
+Khóa riêng tư: (221, 113)
+
+Mã hóa: c = 42¹⁷ mod 221 = 84
+Giải mã: m = 84¹¹³ mod 221 = 42 ✓
+            </div>
+            <button class="try-button" onclick="tryExample(13, 17, 42)">Thử trong Code Lab</button>
+        </div>
+        
+        <!-- Example 4 -->
+        <div class="example">
+            <h3>Ví dụ 4: Ví dụ mặc định</h3>
+            <div class="params">
+                <strong>Tham số:</strong> p = 61, q = 53, m = 123
+            </div>
+            <div class="steps">
+n = 61 × 53 = 3233
+φ(n) = 60 × 52 = 3120
+e = 17 (gcd(17, 3120) = 1)
+d = 2753 (vì 17 × 2753 = 46801 ≡ 1 mod 3120)
+
+Khóa công khai: (3233, 17)
+Khóa riêng tư: (3233, 2753)
+
+Mã hóa: c = 123¹⁷ mod 3233 = 855
+Giải mã: m = 855²⁷⁵³ mod 3233 = 123 ✓
+            </div>
+            <button class="try-button" onclick="tryExample(61, 53, 123)">Thử trong Code Lab</button>
+        </div>
+        
+        <!-- Example 5 -->
+        <div class="example">
+            <h3>Ví dụ 5: Số nguyên tố lớn hơn</h3>
+            <div class="params">
+                <strong>Tham số:</strong> p = 71, q = 89, m = 1000
+            </div>
+            <div class="steps">
+n = 71 × 89 = 6319
+φ(n) = 70 × 88 = 6160
+e = 17 (gcd(17, 6160) = 1)
+d = 5417 (vì 17 × 5417 = 92089 ≡ 1 mod 6160)
+
+Khóa công khai: (6319, 17)
+Khóa riêng tư: (6319, 5417)
+
+Mã hóa: c = 1000¹⁷ mod 6319 = 4682
+Giải mã: m = 4682⁵⁴¹⁷ mod 6319 = 1000 ✓
+            </div>
+            <button class="try-button" onclick="tryExample(71, 89, 1000)">Thử trong Code Lab</button>
+        </div>
+        
+        <!-- Example 6 -->
+        <div class="example">
+            <h3>Ví dụ 6: Thông điệp là chữ cái</h3>
+            <div class="params">
+                <strong>Tham số:</strong> p = 23, q = 29, m = 65 (ký tự 'A' trong ASCII)
+            </div>
+            <div class="steps">
+n = 23 × 29 = 667
+φ(n) = 22 × 28 = 616
+e = 17 (gcd(17, 616) = 1)
+d = 217 (vì 17 × 217 = 3689 ≡ 1 mod 616)
+
+Khóa công khai: (667, 17)
+Khóa riêng tư: (667, 217)
+
+Mã hóa: c = 65¹⁷ mod 667 = 413
+Giải mã: m = 413²¹⁷ mod 667 = 65 ✓
+
+Lưu ý: 65 là mã ASCII của ký tự 'A'
+            </div>
+            <button class="try-button" onclick="tryExample(23, 29, 65)">Thử trong Code Lab</button>
+        </div>
+        
+        <div class="note">
+            <h3>💡 Lưu ý quan trọng</h3>
+            <ul style="margin-left: 20px; line-height: 1.8;">
+                <li>Các ví dụ trên sử dụng số nguyên tố nhỏ để dễ hiểu và tính toán thủ công</li>
+                <li>Trong thực tế, RSA sử dụng số nguyên tố cực kỳ lớn (1024-4096 bits)</li>
+                <li>Thông điệp m phải nhỏ hơn n (m < n)</li>
+                <li>e thường được chọn là 3, 17, 257, hoặc 65537</li>
+                <li>d được tính bằng thuật toán Extended Euclidean</li>
+                <li>Trong ứng dụng thực tế, cần thêm padding (OAEP hoặc PKCS#1)</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; color: #666;">
+            <p>Hãy thử các ví dụ trên trong Code Lab để hiểu rõ hơn về RSA!</p>
+            <a href="index.html" style="display: inline-block; margin-top: 15px; padding: 12px 30px; background: #667eea; color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">
+                Mở Code Lab
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        function tryExample(p, q, m) {
+            // Store values in localStorage to pass to main page
+            localStorage.setItem('rsa_p', p);
+            localStorage.setItem('rsa_q', q);
+            localStorage.setItem('rsa_m', m);
+            
+            // Redirect to main page with codelab tab
+            window.location.href = 'index.html#codelab';
+        }
+    </script>
+</body>
+</html>

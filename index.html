@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSA Code Lab - Lý thuyết và Thực hành</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-lock"></i> RSA Code Lab</h1>
+            <p>Tìm hiểu và thực hành thuật toán mã hóa RSA</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'theory')">
+                <i class="fas fa-book"></i> Lý thuyết
+            </button>
+            <button class="tab-button" onclick="openTab(event, 'codelab')">
+                <i class="fas fa-code"></i> Code Lab
+            </button>
+        </div>
+
+        <!-- Tab Lý thuyết -->
+        <div id="theory" class="tab-content active">
+            <div class="theory-section">
+                <h2><i class="fas fa-lightbulb"></i> Nguyên lý RSA</h2>
+                
+                <div class="concept-card">
+                    <h3>1. Các bước tạo khóa RSA</h3>
+                    <ol>
+                        <li><strong>Chọn hai số nguyên tố p và q:</strong> Hai số nguyên tố lớn và khác nhau</li>
+                        <li><strong>Tính n = p × q:</strong> Modulus công khai</li>
+                        <li><strong>Tính φ(n) = (p-1)(q-1):</strong> Hàm Euler's totient</li>
+                        <li><strong>Chọn e:</strong> 1 < e < φ(n) và gcd(e, φ(n)) = 1</li>
+                        <li><strong>Tìm d:</strong> d ≡ e⁻¹ (mod φ(n)), tức e × d ≡ 1 (mod φ(n))</li>
+                    </ol>
+                    <div class="formula">
+                        <p><strong>Khóa công khai:</strong> (n, e)</p>
+                        <p><strong>Khóa riêng tư:</strong> (n, d)</p>
+                    </div>
+                </div>
+
+                <div class="concept-card">
+                    <h3>2. Mã hóa và Giải mã</h3>
+                    <div class="formula">
+                        <p><strong>Mã hóa:</strong> c ≡ m<sup>e</sup> (mod n)</p>
+                        <p><strong>Giải mã:</strong> m ≡ c<sup>d</sup> (mod n)</p>
+                    </div>
+                    <p>Trong đó m là thông điệp gốc và c là thông điệp đã mã hóa.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h3>3. Tại sao RSA bảo mật?</h3>
+                    <ul>
+                        <li><strong>Vấn đề phân tích thừa số:</strong> Bảo mật của RSA dựa trên độ khó của việc phân tích n thành p × q</li>
+                        <li><strong>Với n lớn:</strong> Việc tìm p và q từ n là cực kỳ khó khăn với máy tính hiện tại</li>
+                        <li><strong>Không có p, q:</strong> Không thể tính φ(n) và do đó không thể tìm d từ e</li>
+                        <li><strong>Thời gian tính toán:</strong> Phân tích thừa số n có độ dài 2048 bit có thể mất hàng triệu năm</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>4. Hệ số e phổ biến: 65537</h3>
+                    <ul>
+                        <li><strong>65537 = 2¹⁶ + 1:</strong> Là số nguyên tố Fermat thứ 5</li>
+                        <li><strong>Hiệu quả tính toán:</strong> Chỉ có 2 bit 1 trong biểu diễn nhị phân (10000000000000001)</li>
+                        <li><strong>Mã hóa nhanh:</strong> Phép lũy thừa m⁶⁵⁵³⁷ có thể tính nhanh bằng 16 phép bình phương và 1 phép nhân</li>
+                        <li><strong>Bảo mật cao:</strong> Đủ lớn để tránh các tấn công với e nhỏ</li>
+                    </ul>
+                </div>
+
+                <div class="concept-card">
+                    <h3>5. Padding và tầm quan trọng</h3>
+                    <h4>Tại sao cần Padding?</h4>
+                    <ul>
+                        <li><strong>RSA thuần túy không an toàn:</strong> Có thể bị tấn công với thông điệp nhỏ hoặc có cấu trúc</li>
+                        <li><strong>Tấn công deterministic:</strong> Cùng một thông điệp sẽ tạo ra cùng một ciphertext</li>
+                        <li><strong>Tấn công chosen plaintext:</strong> Kẻ tấn công có thể đoán được nội dung</li>
+                    </ul>
+                    
+                    <h4>PKCS#1 v1.5 vs OAEP</h4>
+                    <div class="padding-comparison">
+                        <div class="padding-method">
+                            <h5>PKCS#1 v1.5</h5>
+                            <ul>
+                                <li>Cấu trúc: 00 || 02 || PS || 00 || M</li>
+                                <li>PS: Padding string ngẫu nhiên</li>
+                                <li>Đơn giản nhưng có thể bị tấn công padding oracle</li>
+                            </ul>
+                        </div>
+                        <div class="padding-method">
+                            <h5>OAEP (Optimal Asymmetric Encryption Padding)</h5>
+                            <ul>
+                                <li>An toàn hơn, chống lại chosen ciphertext attacks</li>
+                                <li>Sử dụng hash functions và mask generation</li>
+                                <li>Được khuyến nghị sử dụng trong các ứng dụng mới</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Code Lab -->
+        <div id="codelab" class="tab-content">
+            <div class="codelab-section">
+                <h2><i class="fas fa-terminal"></i> RSA Demo - Thực hành từng bước</h2>
+                <p style="margin-bottom: 15px; color: #666;">
+                    <a href="examples.html" style="color: #667eea; text-decoration: none; font-weight: 600;">
+                        <i class="fas fa-book-open"></i> Xem các ví dụ minh họa
+                    </a>
+                </p>
+                
+                <div class="demo-controls">
+                    <div class="input-group">
+                        <label for="p-input">Số nguyên tố p:</label>
+                        <input type="number" id="p-input" value="61" min="2">
+                        <button onclick="checkPrime('p')">Kiểm tra</button>
+                        <span id="p-status" class="status"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="q-input">Số nguyên tố q:</label>
+                        <input type="number" id="q-input" value="53" min="2">
+                        <button onclick="checkPrime('q')">Kiểm tra</button>
+                        <span id="q-status" class="status"></span>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="message-input">Thông điệp m (số nguyên):</label>
+                        <input type="number" id="message-input" value="123" min="1">
+                    </div>
+                    
+                    <button class="generate-btn" onclick="generateRSA()">
+                        <i class="fas fa-cogs"></i> Tạo khóa RSA
+                    </button>
+                </div>
+
+                <div id="results" class="results-section">
+                    <!-- Kết quả sẽ được hiển thị ở đây -->
+                </div>
+
+                <div class="encryption-section" id="encryption-section" style="display: none;">
+                    <h3>Mã hóa và Giải mã</h3>
+                    <button class="encrypt-btn" onclick="encryptMessage()">
+                        <i class="fas fa-lock"></i> Mã hóa
+                    </button>
+                    <button class="decrypt-btn" onclick="decryptMessage()">
+                        <i class="fas fa-unlock"></i> Giải mã
+                    </button>
+                    
+                    <div id="encryption-results" class="encryption-results">
+                        <!-- Kết quả mã hóa/giải mã -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
