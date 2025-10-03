@@ -63,8 +63,5 @@ d = 53 (17 × 53 ≡ 1 mod 60)
 
 Mã hóa: c = 5^17 mod 77 = 26
 Giải mã: m = 26^53 mod 77 = 5 ✓
-Được tạo bởi Cascade AI Assistant cho mục đích giáo dục.
 
 ---
-
-**Chúc bạn học tập vui vẻ! 🎓🔐**
